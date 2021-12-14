@@ -11,6 +11,7 @@
 <script lang="ts">
 import Scrollama from 'vue-scrollama';
 import MarkdownIt from 'markdown-it';
+import markdownItLinkAttributes from 'markdown-it-link-attributes';
 
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { TextPanel } from '@/definitions';
@@ -23,7 +24,7 @@ import { TextPanel } from '@/definitions';
 export default class TextPanelV extends Vue {
     @Prop() config!: TextPanel;
 
-    md = new MarkdownIt();
+    md = new MarkdownIt().use(markdownItLinkAttributes, { attrs: { target: '_NEW' } });
 }
 </script>
 

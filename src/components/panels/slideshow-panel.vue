@@ -16,7 +16,7 @@
         </hooper>
 
         <div v-if="config.caption" class="text-center mt-5 text-sm">
-            {{ config.caption }}
+            {{ md.render(config.caption) }}
         </div>
     </div>
 </template>
@@ -24,6 +24,8 @@
 <script lang="ts">
 import { Hooper, Slide, Navigation as HooperNavigation, Pagination as HooperPagination } from 'hooper';
 import 'hooper/dist/hooper.css';
+import MarkdownIt from 'markdown-it';
+import markdownItLinkAttributes from 'markdown-it-link-attributes';
 
 import { SlideshowPanel } from '@/definitions';
 import { Component, Vue, Prop } from 'vue-property-decorator';
@@ -39,6 +41,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 export default class SlideshowPanelV extends Vue {
     @Prop() config!: SlideshowPanel;
 
+    md = new MarkdownIt().use(markdownItLinkAttributes, { attrs: { target: '_NEW' } });
     width = -1;
 
     mounted(): void {
